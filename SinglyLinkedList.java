@@ -33,8 +33,7 @@ public class SinglyLinkedList {
     public int LinkedListSize() {
 
         //checking if the headNode is empty
-        if (headNode==null)
-        {
+        if (headNode == null) {
             return 0;
         }
 
@@ -48,23 +47,23 @@ public class SinglyLinkedList {
     }
 
 
-    public void InsertFront() {
-        ListNode tempNode = headNode;
+    public void InsertFront(int newNodeValue) {
+        //ListNode tempNode = headNode;
+        ListNode newNode = new ListNode(newNodeValue);
+        newNode.nextNode = headNode;
+        headNode = newNode;
     }
 
 
     public static void main(String[] args) {
 //      Creating a SinglyLinked list object and nodes for the SinglyLinked list
         SinglyLinkedList linkListObject = new SinglyLinkedList();
-        SinglyLinkedList newLinkedListObject = new SinglyLinkedList();
         linkListObject.headNode = new ListNode(1);
-        newLinkedListObject.headNode = new ListNode(44);
         ListNode firstNode = new ListNode(3);
         ListNode secondNode = new ListNode(15);
         ListNode thirdNode = new ListNode(6);
         ListNode fourthNode = new ListNode(20);
 
-        ListNode newNode = new ListNode(0);
 
 //      Connecting all the nodes together by linking each nextNode field with the dataField
         linkListObject.headNode.nextNode = firstNode; //1->3
@@ -72,12 +71,17 @@ public class SinglyLinkedList {
         secondNode.nextNode = thirdNode;//1->3->15->6
         thirdNode.nextNode = fourthNode;//1->3->15->6->null
 
+        //        Adding a new Node value in the beginning of linked list
+        linkListObject.InsertFront(21);
+        linkListObject.InsertFront(89);
+
 
 //      Displaying the Singly Linked list by calling the DisplayLinkedList method on the LinkedList object
         linkListObject.DisplayLinkedList();
 
+
 //       Displaying the size of the linkedList by calling the
-        System.out.println("\nThe linkedlist size is: " + linkListObject.LinkedListSize());
+        System.out.println("\nThe linked list size is: " + linkListObject.LinkedListSize());
 
     }
 
