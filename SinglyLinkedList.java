@@ -1,89 +1,205 @@
+package JavaTuts;
+
 import java.util.List;
 
-public class SinglyLinkedList {
+
+//creating the SinglyLinkedList class
+public class SinglyLinkedList0 {
     private ListNode headNode;
 
-    private static class ListNode {
+    //creating the inner class for each of the Nodes in the linked List
+    public static class ListNode {
         private int dataField;
-        private ListNode nextNode;
+        private ListNode nextField;
 
-        //Creating the constructor for ListNode - this allows us to create Nodes for our Linked list
-        public ListNode(int data) {
-            dataField = data;
-            this.nextNode = null;
+        //class constructor
+        public ListNode(int userData) {
+            dataField = userData;
+            this.nextField = null;
         }
+
     }
 
-    /*
-        1->3->15->6-->20
-
-
-     */
-
-    public void DisplayLinkedList() {
-//Displaying the SinglyLinked list linkedList elements
+    //creating the display method
+    //Time Complexity: O(n)
+    public void DisplayList(ListNode headNode) {
         ListNode currentNode = headNode;
         while (currentNode != null) {
-            System.out.print(currentNode.dataField + " --> ");
-            currentNode = currentNode.nextNode;
+            System.out.print(currentNode.dataField + " -> ");
+            currentNode = currentNode.nextField;
         }
-        System.out.print("null ");
+        System.out.print("null\n");
     }
 
-    public int LinkedListSize() {
-
-        //checking if the headNode is empty
+    //creating the method to reverse the linkedList
+    //Time Complexity: O(n)
+    public ListNode ReverseList(ListNode headNode) {
         if (headNode == null) {
-            return 0;
+            return headNode;
         }
-
         ListNode currentNode = headNode;
-        int listSizeCounter = 0;
+        ListNode prevNode = null;
+        ListNode nextNode;
+
         while (currentNode != null) {
-            listSizeCounter += 1;
-            currentNode = currentNode.nextNode;
+            nextNode = currentNode.nextField;
+            currentNode.nextField = prevNode;
+            prevNode = currentNode;
+            currentNode = nextNode;
         }
-        return listSizeCounter;
+        return prevNode;
+
     }
 
-
-    public void InsertFront(int newNodeValue) {
-        //ListNode tempNode = headNode;
-        ListNode newNode = new ListNode(newNodeValue);
-        newNode.nextNode = headNode;
+    //creating the method for inserting a node at the front of the linked List
+    //Time Complexity: O(1), because we are inserting at the head(first node) of the singly linked list
+    public void InsertFront(int userData) {
+        //creating the newNode to be inserted
+        ListNode newNode = new ListNode(userData);
+        // ListNode currentNode= headNode;
+        newNode.nextField = headNode;
         headNode = newNode;
     }
 
+    //This method is for inserting an element at the end of the singly linked list
+    //Time Complexity: O(n), where n is the size of elements  we must traverse through in order to reach and insert an element in the singly linked list
+    public void InsertEnd(int userData) {
+        ListNode newNode = new ListNode(userData);
+        ListNode currentNode = headNode;
 
-    public static void main(String[] args) {
-//      Creating a SinglyLinked list object and nodes for the SinglyLinked list
-        SinglyLinkedList linkListObject = new SinglyLinkedList();
-        linkListObject.headNode = new ListNode(1);
-        ListNode firstNode = new ListNode(3);
-        ListNode secondNode = new ListNode(15);
-        ListNode thirdNode = new ListNode(6);
-        ListNode fourthNode = new ListNode(20);
+        //checking each Nodes reference field
+        while (currentNode.nextField != null) {
+            currentNode = currentNode.nextField;
+        }
+        currentNode.nextField = newNode;
+    }
 
-
-//      Connecting all the nodes together by linking each nextNode field with the dataField
-        linkListObject.headNode.nextNode = firstNode; //1->3
-        firstNode.nextNode = secondNode;//1->3->15
-        secondNode.nextNode = thirdNode;//1->3->15->6
-        thirdNode.nextNode = fourthNode;//1->3->15->6->null
-
-        //        Adding a new Node value in the beginning of linked list
-        linkListObject.InsertFront(21);
-        linkListObject.InsertFront(89);
-
-
-//      Displaying the Singly Linked list by calling the DisplayLinkedList method on the LinkedList object
-        linkListObject.DisplayLinkedList();
-
-
-//       Displaying the size of the linkedList by calling the
-        System.out.println("\nThe linked list size is: " + linkListObject.LinkedListSize());
+    //This method is responsible for finding the size of the Singly Linked List
+    //Time Complexity: O(n)
+    public int ListLength(ListNode userHeadNode) {
+        int count = 0;
+        ListNode currentNode = userHeadNode;
+        while (currentNode != null) {
+            count += 1;
+            currentNode = currentNode.nextField;
+        }
+        return count;
 
     }
 
+    //This method is responsible for finding the maximum value of a node inside a linked list
+    //Time Complexity: O(n)
+    public int MaxValue(int listSize) {
+        ListNode currentNode = headNode;
+        int maxValue = headNode.dataField;
+        int counter;
+        for (counter = 0; counter < listSize; counter++) {
+            if (currentNode.dataField > maxValue) {
+                maxValue = currentNode.dataField;
+            }
+            currentNode = currentNode.nextField;
+        }
+        return maxValue;
 
+    }
+
+    //This Method is responsible for finding the lowest value in the singly linked list
+    //Time Complexity: O(n), where n is the size of the singly linked list
+    public int MinValue(int listSize) {
+        ListNode currentNode = headNode;
+        int minValue = currentNode.dataField;
+        int counter;
+        for (counter = 0; counter < listSize; counter++) {
+            if (currentNode.dataField < minValue) {
+                minValue = currentNode.dataField;
+            }
+            currentNode = currentNode.nextField;
+
+        }
+        return minValue;
+    }
+
+
+    //This method is responsible for finding the middle value of a singly linked list regardless of it's size is even or odd
+    //Time complexity: O(n), where n is the number of nodes in the given singly linked list
+    public ListNode GetMiddleElement(ListNode userHeadNode) {
+        ListNode fastPointer = userHeadNode;
+        ListNode slowPointer = userHeadNode;
+        //first we must always check if the head is pointing to null
+        if(headNode==null)
+        {
+            return null;
+        }
+
+        //moving both pointers as long as the fastPointer does not equal to null and it does not reference to null
+        while(fastPointer!=null && fastPointer.nextField!=null)
+        {
+
+            slowPointer=slowPointer.nextField;
+            fastPointer=fastPointer.nextField.nextField;
+        }
+        return slowPointer;
+    }
+
+
+    //Main method is where we create and provoke functions on our SinglyLinkedList object
+    public static void main(String[] args) {
+
+        //creating the nodes for the linked List
+        ListNode headNode = new ListNode(100);
+        ListNode firstNode = new ListNode(20);
+        ListNode secondNode = new ListNode(90);
+        ListNode thirdNode = new ListNode(10);
+
+        //attaching all the listNodes together
+        headNode.nextField = firstNode;
+        firstNode.nextField = secondNode;
+        secondNode.nextField = thirdNode;
+
+        //creating a linkedList object to invoke different methods on it
+        SinglyLinkedList0 myLinkedList = new SinglyLinkedList0();
+
+        //assigning the local headNode variable to the SinglyLinkedList0 object's instance variable
+        myLinkedList.headNode = headNode;
+
+        //Inserting a key at the front of a linked list
+        myLinkedList.InsertFront(21);
+        myLinkedList.InsertEnd(89);
+
+        //Inserting a key at the end of a linked list
+        myLinkedList.InsertEnd(690);
+
+        //getting the length of the list
+        int listLength = myLinkedList.ListLength(myLinkedList.headNode);
+        System.out.println("The list Length is: " + listLength);
+
+        //Finding the maximum value in the linked list
+        System.out.println("The Max value in the linked list is: " + myLinkedList.MaxValue(listLength));
+
+        //Finding the minimum value in the linked List
+        System.out.println("The min value in the linked list is: " + myLinkedList.MinValue(listLength));
+
+        //Displaying the linked list before it has been reversed
+        System.out.print("\nBefore Reversing the list: ");
+        myLinkedList.DisplayList(myLinkedList.headNode);
+
+        //Finding the middle element of the Original(Not reversed) singly linked list
+        System.out.println("The middle element is: "+myLinkedList.GetMiddleElement(myLinkedList.headNode).dataField+"\n");
+
+        //Reversing the linked list, we do this by creating an a listNode that stores the reversed headNode
+        System.out.print("After Reversing the list: ");
+        ListNode reversedHeadNode = myLinkedList.ReverseList(myLinkedList.headNode);
+
+        //Displaying the reversed LinkedList
+        myLinkedList.DisplayList(reversedHeadNode);
+
+        //Finding the middle element of the Reversed singly linked list
+        ListNode ReversedMiddleNode = myLinkedList.GetMiddleElement(reversedHeadNode);
+        System.out.println("The middle element is: "+ReversedMiddleNode.dataField);
+
+
+
+
+    }
 }
+
