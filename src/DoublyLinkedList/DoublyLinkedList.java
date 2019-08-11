@@ -90,6 +90,12 @@ public class DoublyLinkedList {
     public void BackwardDisplay()
     {
 
+//      Checking if the tail does not hold any node, if so then we will exit the program.
+        if(tailPtr==null)
+        {
+            return;
+        }
+
         ListNode tempNode = tailPtr;
 
         while (tempNode!=null)
