@@ -1,5 +1,7 @@
 package DoublyLinkedList;
 
+import java.util.List;
+
 public class DoublyLinkedList {
 
 //  Each DoublyLinkedList contains the head and tail ptr.
@@ -84,12 +86,33 @@ public class DoublyLinkedList {
     }
 
 
+//    Displaying from Tail Direction
+    public void BackwardDisplay()
+    {
+
+        ListNode tempNode = tailPtr;
+
+        while (tempNode!=null)
+        {
+            System.out.print(tempNode.dataField+" => ");
+            tempNode=tempNode.prevPtr;
+        }
+        System.out.print(" null\n");
+
+    }
+
+
     public static void  main(String[] args)
     {
     DoublyLinkedList myDLL = new DoublyLinkedList();
+        System.out.println("\nForward Display");
     myDLL.insertLast(1);
     myDLL.insertLast(2);
     myDLL.ForwardDisplay();
+        System.out.println("\n\nBackward Display");
+    myDLL.BackwardDisplay();
+
+
     }
 
 }
