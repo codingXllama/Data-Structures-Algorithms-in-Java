@@ -10,6 +10,7 @@ public class DoublyLinkedList {
 
     private class ListNode{
 
+//      Each ListNode contains the following instance variables
         private int dataField;
         private ListNode prevPtr;
         private ListNode nextPtr;
@@ -41,6 +42,54 @@ public class DoublyLinkedList {
     public int getLength()
     {
         return length;
+    }
+
+
+//    Displaying the Nodes in the DLL from the tail
+    public void insertLast(int value)
+    {
+        ListNode newNode = new ListNode(value);
+        if(isEmpty())
+        {
+            headPtr=newNode;
+        }
+        else{
+            tailPtr.nextPtr=newNode;
+        }
+//      Attaching the tailPtr to the newNode.prevPtr and then making the newNode to be our TailPtr
+        newNode.prevPtr=tailPtr;
+        tailPtr=newNode;
+
+//      Update the DLL size
+        length++;
+    }
+
+
+//   Displaying DLL in forward direction
+
+    public void ForwardDisplay()
+    {
+//      Checking if the headPtr is empty, this tells us the DLL is empty since it's not holding any nodes
+        if(headPtr==null)
+        {
+            return;
+        }
+        ListNode tempNode=headPtr;
+        while (tempNode!=null)
+        {
+            System.out.print(tempNode.dataField+" => ");
+            tempNode=tempNode.nextPtr;
+        }
+        System.out.print("null");
+    }
+
+
+    public static void  main(String[] args)
+    {
+    DoublyLinkedList myDLL = new DoublyLinkedList();
+    myDLL.insertLast(1);
+    myDLL.insertLast(2);
+    myDLL.ForwardDisplay();
     }
 
 }
