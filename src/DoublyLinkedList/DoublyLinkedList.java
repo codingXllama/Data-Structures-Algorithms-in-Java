@@ -69,6 +69,7 @@ public class DoublyLinkedList {
 
 //   Displaying DLL in forward direction
 
+//    Time and Space complexity : O(n), where n is the number of elements in the DLL.
     public void ForwardDisplay()
     {
 //      Checking if the headPtr is empty, this tells us the DLL is empty since it's not holding any nodes
@@ -87,6 +88,7 @@ public class DoublyLinkedList {
 
 
 //    Displaying from Tail Direction
+//    Time and Space Complexity: O(n), where n is the number of elements in the DLL.
     public void BackwardDisplay()
     {
 
