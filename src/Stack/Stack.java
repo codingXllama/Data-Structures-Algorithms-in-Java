@@ -1,9 +1,8 @@
 package Stack;
 
-import org.w3c.dom.ls.LSOutput;
 
-import javax.crypto.spec.PSource;
 import javax.swing.*;
+import java.util.EmptyStackException;
 import java.util.Scanner;
 
 public class Stack {
@@ -54,6 +53,25 @@ public class Stack {
 
     }
 
+    public int POP()
+    {
+//        checking if the stack is empty
+        if(isEmpty())
+        {
+            System.out.printf("The stack is empty,please try again!\n");
+            return 1;
+        }
+        else{
+            int removedValue=top.dataFiled;
+            top=top.nextField;
+            stackSize-=1;
+            return removedValue;
+
+        }
+    }
+
+
+
     public void DisplayStack()
     {
         ListNode currentNode=top;
@@ -70,6 +88,7 @@ public class Stack {
 
         Scanner userInput= new Scanner(System.in);
         boolean menuExit=false;
+        int userVal;
 
         Stack myStack= new Stack();
         //Creating the Stack Menu.
@@ -91,10 +110,14 @@ public class Stack {
             {
                 case 1:
                     System.out.print("Enter element to push onto the stack: ");
-                    int userVal=userInput.nextInt();
-                    myStack.Push(userVal);
+                    myStack.Push(userVal=userInput.nextInt());
                         break;
                 case 2:
+                    System.out.println("Enter element to pop from the stack: ");
+                    myStack.POP();
+                    break;
+
+
                 case 3:
                     System.out.println("The Stack size: "+myStack.getStackSize());
 
